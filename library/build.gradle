@@ -1,14 +1,29 @@
 apply plugin: 'android-library'
+apply plugin: 'maven'
 
 repositories {
     mavenCentral()
 }
 
 dependencies {
-    compile 'com.android.support:support-v4:18.0.+'
+    compile 'com.android.support:support-v4:19.0.+'
 }
 
 android {
     compileSdkVersion 16
-    buildToolsVersion "18.0.1"
+    buildToolsVersion '19.0.1'
+}
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            repository(url: project.deploymentUrl) {
+               authentication(userName: project.deploymentUsername, password: project.deploymentPassword)
+            }
+
+            pom.artifactId = 'library'
+            pom.groupId = 'org.lucasr.twowayview'
+            pom.version = '1.0'
+        }
+    }
 }
